@@ -1,113 +1,113 @@
-# This file contains snippets that are always defined. I personally
-# have snippets for signatures and often needed texts
-
-# sligthly lower priority than everything else since specialized versions
-# should overwrite. The user needs to adjust her priority in her snippets to
-# ~-55 so that other filetypes will still overwrite.
 priority -60
 
-##############
-# NICE BOXES #
-##############
-global !p
-from vimsnippets import foldmarker, make_box, get_comment_format
-LOREM = """
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod \
-tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At \
-vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, \
-no sea takimata sanctus est Lorem ipsum dolor sit amet.
-"""
-endglobal
-
-snippet box "A nice box with the current comment symbol" b
-`!p
-box = make_box(len(t[1]))
-snip.rv = box[0]
-snip += box[1]
-`${1:${VISUAL:content}}`!p
-box = make_box(len(t[1]))
-snip.rv = box[2]
-snip += box[3]`
-$0
+snippet pokemon "Random Pokémon"
+`!v fake#gen('pokemon')`
 endsnippet
 
-snippet bbox "A nice box over the full width" b
-`!p
-if not snip.c:
-	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
-box = make_box(len(t[1]), width)
-snip.rv = box[0]
-snip += box[1]
-`${1:${VISUAL:content}}`!p
-box = make_box(len(t[1]), width)
-snip.rv = box[2]
-snip += box[3]`
-$0
+snippet swname "Random Star Wars name"
+`!v fake#gen('swname')`
 endsnippet
 
-snippet fold "Insert a vim fold marker" b
-`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = get_comment_format()[2]`
+snippet swvehicle "Random Star Wars vehicle"
+`!v fake#gen('swvehicle')`
 endsnippet
 
-snippet foldc "Insert a vim fold close marker" b
-`!p snip.rv = get_comment_format()[0]` ${2:1}`!p snip.rv = foldmarker()[1]` `!p snip.rv = get_comment_format()[2]`
+snippet swplanet "Random Star Wars planet"
+`!v fake#gen('swplanet')`
 endsnippet
 
-snippet foldp "Insert a vim fold marker pair" b
-`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = get_comment_format()[2]`
-${2:${VISUAL:Content}}
-`!p snip.rv = get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
+snippet swspecies "Random Star Wars species"
+`!v fake#gen('swspecies')`
 endsnippet
 
-##########################
-# LOREM IPSUM GENERATORS #
-##########################
-snippet "lorem(([1-4])?[0-9])?" "Lorem Ipsum" r
-`!p snip.rv = " ".join(LOREM.split()[:int(match.group(1))]) if match.group(1) else LOREM`
+snippet adjective "Random adjective"
+`!v fake#gen('adjective')`
 endsnippet
 
-##########################
-# VIM MODELINE GENERATOR #
-##########################
-# See advice on `:help 'tabstop'` for why these values are set. Uses second
-# modeline form ('set') to work in languages with comment terminators
-# (/* like C */).
-snippet modeline "Vim modeline"
-vim`!v ':set '. (&expandtab ? printf('et sw=%i ts=%i', &sw, &ts) : printf('noet sts=%i sw=%i ts=%i', &sts, &sw, &ts)) . (&tw ? ' tw='. &tw : '') . ':'`
+snippet animal "Random animal"
+`!v fake#gen('animal')`
 endsnippet
 
-#########
-# DATES #
-#########
-snippet date "YYYY-MM-DD" w
-`!v strftime("%Y-%m-%d")`
+snippet noun "Random noun"
+`!v fake#gen('noun')`
 endsnippet
 
-snippet ddate "Month DD, YYYY" w
-`!v strftime("%b %d, %Y")`
+snippet lake "Random lake name"
+`!v fake#gen('lake')`
 endsnippet
 
-snippet diso "ISO format datetime" w
-`!v strftime("%Y-%m-%d %H:%M:%S%z")`
+snippet water "Random body of water name"
+`!v fake#gen('water')`
 endsnippet
 
-snippet time "hh:mm" w
-`!v strftime("%H:%M")`
+snippet street "Random street"
+`!v fake#gen('street')`
 endsnippet
 
-snippet datetime "YYYY-MM-DD hh:mm" w
-`!v strftime("%Y-%m-%d %H:%M")`
+snippet phonetic "Random NATO phonetic alphabet letter"
+`!v fake#gen('phonetic')`
 endsnippet
 
-snippet todo "TODO comment" bw
-`!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
+snippet planet "Random planet"
+`!v fake#gen('planet')`
 endsnippet
 
-##########
-#  Misc  #
-##########
-snippet uuid "Random UUID" w
-`!p if not snip.c: import uuid; snip.rv = str(uuid.uuid4())`
+snippet greek "Random greek"
+`!v fake#gen('greek')`
 endsnippet
 
-# vim:ft=snippets:
+snippet dinosaur "Random dinosaur"
+`!v fake#gen('dinosaur')`
+endsnippet
+
+snippet int "Random integer"
+`!v fake#int()`
+endsnippet
+
+snippet int100 "Random integer (0-100 inclusive)"
+`!v fake#int(0,100)`
+endsnippet
+
+snippet float "Random float"
+`!v printf('%0.4f', fake#float())`
+endsnippet
+
+snippet password "Random password (8 alnum characters)"
+`!v fake#chars(8)`
+endsnippet
+
+snippet pin "Random four digit pin"
+`!v fake#chars(4, '\d')`
+endsnippet
+
+snippet age "Random age"
+`!v fake#gen('age')`
+endsnippet
+
+snippet name "Random human name"
+`!v fake#gen('name')`
+endsnippet
+
+snippet namemale "Random male name"
+`!v fake#gen('male_name')`
+endsnippet
+
+snippet namefemale "Random female name"
+`!v fake#gen('female_name')`
+endsnippet
+
+snippet surname "Random surname"
+`!v fake#gen('surname')`
+endsnippet
+
+snippet country "Random country"
+`!v fake#gen('country')`
+endsnippet
+
+snippet word "Random word"
+`!v fake#gen('word')`
+endsnippet
+
+snippet job "Random job"
+`!v fake#gen('job')`
+endsnippet
