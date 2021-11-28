@@ -1,4 +1,5 @@
 snippet aoc "Advent of Code input boilerplate"
+#[allow(unused_variables)]
 let [sample, input] = ["sample.txt", "input.txt"]
 	.map(|filename| std::fs::read_to_string(filename).expect("Failed to open file."));
 endsnippet
