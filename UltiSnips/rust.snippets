@@ -1,4 +1,4 @@
 snippet aoc "Advent of Code input boilerplate"
-    let [samples, input] = ["samples.txt", "input.txt"]
-        .map(|filename| std::fs::read_to_string(filename).expect("Failed to open file."));
+let [samples, input] = ["samples.txt", "input.txt"]
+	.map(|filename| std::fs::read_to_string(filename).expect("Failed to open file."));
 endsnippet
